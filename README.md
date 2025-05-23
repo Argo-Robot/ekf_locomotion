@@ -1,7 +1,7 @@
 # EKF for Humanoid Robots
 
 <div>
-    <img src="./images/intro.png" alt="Floating base representation" style="width:80%; height:auto;">
+    <img src="./images/intro.png" alt="Floating base representation" style="width:70%; height:auto;">
 </div><br>
 
 In this project, we implement **state estimation** for a biped humanoid robot using an **Extended Kalman Filter (EKF)**. The goal is to locally estimate the robot’s base pose and velocities using only onboard sensors.
