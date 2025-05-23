@@ -168,7 +168,7 @@ Where:
 - $\mathbf{v}$ is the linear velocity (world frame)
 - $\boldsymbol{\omega}$ is the angular velocity (body frame)
 - $\mathbf{F}_c^i$ is the $i$-th foot contact force (expressed in world frame)
-- $\mathbf{R}_{\text{world}}^{\text{body}}$: rotation matrix between body frame and world frame.
+- $\mathbf{R}_{\text{world}}^{\text{body}}$: rotation matrix to express contact forces in body frame.
 - $\mathbf{r}_i$ is the moment arm from CoM to the $i$-th foot contact point (body frame)
 - $\mathbf{g}$ is gravity (in world frame)
 
@@ -279,5 +279,5 @@ This gives us the contact wrench (forces and torques) applied at the feet. These
 
 - **F. Stark, J. Middelberg (2025)**: [*QP Formulations and Solvers for Dynamic Quadrupedal Walking*](https://arxiv.org/pdf/2502.01329)
 - **G. Raiola, E. Mingo (2023)**: [*A simple yet effective whole-body locomotion framework for quadruped robots*](https://hal.science/hal-03005133v2/file/Frontiers20_QuadrupedalWalking.pdf)
-- **J. Li, J. Ma (2023)**: [Dynamic Loco-manipulation on HECTOR: Humanoid for Enhanced ConTrol and Open-source Research*](https://arxiv.org/pdf/2312.11868)
-- **D. Kim, J. Di Carlo (2019)**: [*Highly Dynamic Quadruped Locomotion via Whole-Body Control and Model Predictive Control*](https://arxiv.org/pdf/1909.06586)
+- **J. Li, J. Ma (2023)**: [Dynamic Loco-manipulation on HECTOR: Humanoid for Enhanced ConTrol*](https://arxiv.org/pdf/2312.11868)
+- **D. Kim, J. Di Carlo (2019)**: [*Dynamic Quadruped Locomotion via Whole-Body Control and Model Predictive Control*](https://arxiv.org/pdf/1909.06586)
