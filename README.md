@@ -18,7 +18,7 @@ Estimate the state of the robot (position, orientation, linear and angular veloc
 
 <div>
     <img src="./images/ekf3.png" alt="Floating base representation" style="width:80%; height:auto;">
-</div><br>
+</div>
 
 To estimate the robot's state we use an Extended Kalman Filter (EKF) with a floating rigid body dynamic model. The state vector $\mathbf{x}$ represents the position, velocity, orientation and angular velocity of the center of mass (CoM), while the control input vector $\mathbf{u}$ consists of external contact forces applied to the body.
 
@@ -226,12 +226,12 @@ Matrices $A$ and $B$ must be updated at each time step since they depend on the 
 
 ### Measurements
 
-In order to use EKF, I need to rely on some measurements which will correct my update based only on blind dynamic equations. ORB-SLAM gives me $\mathbf{\hat{p}}_{\text{com}}, \mathbf{\hat{\phi}}$ (e.g. position and orientation estimates of the robot), while IMU gives me $\hat{\ddot{\mathbf{p}}}_{\text{com}} , \hat{\omega}$ (e.g. linear accelerations and angular velocities). I will add these values to the measurements vector $z$.
+In order to use EKF, I need to rely on some measurements which will correct my update based only on blind dynamic equations. ORB-SLAM gives me $p_{\text{SLAM}}$, $\theta_{\text{SLAM}}$ (e.g. position and orientation estimates of the robot), while IMU gives me $a_{\text{IMU}}$, $\omega_{\text{IMU}}$ (e.g. linear accelerations and angular velocities). I will add these values to the measurements vector $z$.
 
 ```math
 \mathbf{z} = \begin{bmatrix} 
 \mathbf{\hat{p}}_{\text{SLAM}} \\
-\mathbf{\hat{\phi}}_{\text{SLAM}} \\
+\mathbf{\hat{\theta}}_{\text{SLAM}} \\
 \hat{\mathbf{a}}_{\text{IMU}} \\
 \boldsymbol{\hat{\omega}}_{\text{IMU}}
 \end{bmatrix}
