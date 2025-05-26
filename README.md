@@ -237,6 +237,17 @@ In order to use EKF, I need to rely on some measurements which will correct my u
 \end{bmatrix}
 ```
 
+So the measurement model $h(x)$ can be defined as:
+
+```math
+\mathbf{h(x)} = \begin{bmatrix} 
+\mathbf{p}_{\text{SLAM}} \\
+\mathbf{\theta} \\
+\mathbf{R}_{\text{world}}^{\text{body}} \cdot (\mathbf{\dot{v}-g)} \\
+\boldsymbol{\omega}
+\end{bmatrix}
+```
+
 ### Scheme
 
 <div>
