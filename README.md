@@ -28,9 +28,9 @@ $$
 \mathbf{x} = 
 \begin{bmatrix}
 \mathbf{p} \\
-\boldsymbol{\theta} \\
+\mathbf{\theta} \\
 \mathbf{v} \\
-\boldsymbol{\omega}
+\mathbf{\omega}
 \end{bmatrix}
 \in \mathbb{R}^{12}
 $$
@@ -38,9 +38,9 @@ $$
 Where:
 
 - $\mathbf{p}$: position of the base (world frame)  
-- $\boldsymbol{\theta}$: orientation (roll, pitch, yaw)  
+- $\mathbf{\theta}$: orientation (roll, pitch, yaw)  
 - $\mathbf{v}$: linear velocity (world frame)  
-- $\boldsymbol{\omega}$: angular velocity (body frame)
+- $\mathbf{\omega}$: angular velocity (body frame)
 
 ### Input Vector
 
@@ -50,7 +50,7 @@ The control input consists of foot **contact forces**:
 \mathbf{u} = 
 \begin{bmatrix}
 \mathbf{F}_{c1} \\
-\boldsymbol{F}_{c2} \\
+\mathbf{F}_{c2} \\
 \end{bmatrix}
 \in \mathbb{R}^{6}
 ```
@@ -88,15 +88,15 @@ Where:
 **Rotational Dynamics:**
 
 $$
-\mathbf{I} \dot{\boldsymbol{\omega}} + \boldsymbol{\omega} \times \mathbf{I} \boldsymbol{\omega} = \sum (\boldsymbol{r}_c^i \ \times \ \boldsymbol{F}_c^i)
+\mathbf{I} \dot{\mathbf{\omega}} + \mathbf{\omega} \times \mathbf{I} \mathbf{\omega} = \sum (\mathbf{r}_c^i \ \times \ \mathbf{F}_c^i)
 $$
 
 Where:
 - $\mathbf{I}$: inertia matrix of the rigid body
-- $\dot{\boldsymbol{\omega}}$: angular acceleration in the body frame
-- $\boldsymbol{\omega}$: angular velocity in the body frame
-- $\boldsymbol{F}_c$: contact force
-- $\boldsymbol{r}_c$: distance between contact point and CoM
+- $\dot{\mathbf{\omega}}$: angular acceleration in the body frame
+- $\mathbf{\omega}$: angular velocity in the body frame
+- $\mathbf{F}_c$: contact force
+- $\mathbf{r}_c$: distance between contact point and CoM
 
 ### State Space Form
 
@@ -118,23 +118,23 @@ We assume:
 Therefore:
 
 $$
-\frac{d}{dt}(\mathbf{I} \boldsymbol{\omega}) = \mathbf{I} \dot{\boldsymbol{\omega}} + \boldsymbol{\omega} \times \mathbf{I} \boldsymbol{\omega} \approx \mathbf{I} \dot{\boldsymbol{\omega}}
+\frac{d}{dt}(\mathbf{I} \mathbf{\omega}) = \mathbf{I} \dot{\mathbf{\omega}} + \mathbf{\omega} \times \mathbf{I} \mathbf{\omega} \approx \mathbf{I} \dot{\mathbf{\omega}}
 $$
 
 **Note 2: Orientation–Angular Velocity Mapping**
 
-We represent orientation using ZYX Euler angles: $\boldsymbol{\theta} = [\phi, \theta, \psi]^T$
+We represent orientation using ZYX Euler angles: $\mathbf{\theta} = [\phi, \theta, \psi]^T$
 
-To relate body angular velocity $\boldsymbol{\omega}$ to the time derivative of Euler angles $\dot{\boldsymbol{\theta}}$, we use the transformation:
-
-$$
-\boldsymbol{\omega} = T(\boldsymbol{\theta}) \dot{\boldsymbol{\theta}}
-$$
-
-Where the matrix $T(\boldsymbol{\theta}) \in \mathbb{R}^{3 \times 3}$ for ZYX convention is:
+To relate body angular velocity $\mathbf{\omega}$ to the time derivative of Euler angles $\dot{\mathbf{\theta}}$, we use the transformation:
 
 $$
-T(\boldsymbol{\theta}) =
+\mathbf{\omega} = T(\mathbf{\theta}) \dot{\mathbf{\theta}}
+$$
+
+Where the matrix $T(\mathbf{\theta}) \in \mathbb{R}^{3 \times 3}$ for ZYX convention is:
+
+$$
+T(\mathbf{\theta}) =
 \begin{bmatrix}
 1 & 0 & -\sin\theta \\
 0 & \cos\phi & \cos\theta \sin\phi \\
@@ -142,7 +142,7 @@ T(\boldsymbol{\theta}) =
 \end{bmatrix}
 $$
 
-When roll and pitch are small, $T(\boldsymbol{\theta}) \approx I_{3 \times 3}$, which simplifies the model further. However, we will retain the full nonlinear form.
+When roll and pitch are small, $T(\mathbf{\theta}) \approx I_{3 \times 3}$, which simplifies the model further. However, we will retain the full nonlinear form.
 
 **Simplified State Space Form**:
 
@@ -151,7 +151,7 @@ When roll and pitch are small, $T(\boldsymbol{\theta}) \approx I_{3 \times 3}$, 
 ```
 
 ```math
-\dot{\boldsymbol{\theta}} = T^{-1}(\boldsymbol{\theta}) \boldsymbol{\omega}
+\dot{\mathbf{\theta}} = T^{-1}(\mathbf{\theta}) \mathbf{\omega}
 ```
 
 ```math
@@ -159,14 +159,14 @@ When roll and pitch are small, $T(\boldsymbol{\theta}) \approx I_{3 \times 3}$, 
 ```
 
 ```math
-\dot{\boldsymbol{\omega}} = \mathbf{I}^{-1} \left( \mathbf{r}_{c1} \times (\mathbf{R}_{\text{world}}^{\text{body}} \cdot \mathbf{F}_{c1}) + \mathbf{r}_{c2} \times (\mathbf{R}_{\text{world}}^{\text{body}} \cdot \mathbf{F}_{c2}) \right)
+\dot{\mathbf{\omega}} = \mathbf{I}^{-1} \left( \mathbf{r}_{c1} \times (\mathbf{R}_{\text{world}}^{\text{body}} \cdot \mathbf{F}_{c1}) + \mathbf{r}_{c2} \times (\mathbf{R}_{\text{world}}^{\text{body}} \cdot \mathbf{F}_{c2}) \right)
 ```
 
 Where:
 - $\mathbf{p}$ is the position of the base in world frame
-- $\boldsymbol{\theta}$ is the orientation (roll, pitch, yaw)
+- $\mathbf{\theta}$ is the orientation (roll, pitch, yaw)
 - $\mathbf{v}$ is the linear velocity (world frame)
-- $\boldsymbol{\omega}$ is the angular velocity (body frame)
+- $\mathbf{\omega}$ is the angular velocity (body frame)
 - $\mathbf{F}_c^i$ is the $i$-th foot contact force (expressed in world frame)
 - $\mathbf{R}_{\text{world}}^{\text{body}}$: rotation matrix to express contact forces in body frame.
 - $\mathbf{r}_i$ is the moment arm from CoM to the $i$-th foot contact point (body frame)
@@ -192,15 +192,15 @@ $$
 A = 
 \begin{bmatrix}
 0 & 0 & I_3 & 0 \\
-0 & \frac{\partial f_2}{\partial \boldsymbol{\theta}} & 0 & T^{-1}(\boldsymbol{\theta}) \\
+0 & \frac{\partial f_2}{\partial \mathbf{\theta}} & 0 & T^{-1}(\mathbf{\theta}) \\
 0 & 0 & 0 & 0 \\
-0 & \frac{\partial f_4}{\partial \boldsymbol{\theta}} & 0 & 0 \\
+0 & \frac{\partial f_4}{\partial \mathbf{\theta}} & 0 & 0 \\
 \end{bmatrix}
 $$
 
 Where:
 - $I_3$: 3×3 identity matrix
-- $T^{-1}(\boldsymbol{\theta})$: transformation matrix relating Euler angle rates to angular velocity
+- $T^{-1}(\mathbf{\theta})$: transformation matrix relating Euler angle rates to angular velocity
 
 #### B Matrix – Input Jacobian
 
@@ -212,17 +212,17 @@ B =
 0 & 0 \\
 0 & 0 \\
 \frac{1}{m} I_3 & \frac{1}{m} I_3 \\
-I^{-1} \cdot \text{skew}(\mathbf{r}_{c1}) \cdot R(\boldsymbol{\theta}) & I^{-1} \cdot \text{skew}(\mathbf{r}_{c2}) \cdot R(\boldsymbol{\theta}) \\
+I^{-1} \cdot \text{skew}(\mathbf{r}_{c1}) \cdot R(\mathbf{\theta}) & I^{-1} \cdot \text{skew}(\mathbf{r}_{c2}) \cdot R(\mathbf{\theta}) \\
 \end{bmatrix}
 ```
 
 Where:
 - $\text{skew}(\mathbf{r}_i)$: skew-symmetric matrix for cross product with moment arm $\mathbf{r}_i$
-- $R(\boldsymbol{\theta})$: rotation matrix from world frame to body frame
+- $R(\mathbf{\theta})$: rotation matrix from world frame to body frame
 
 **Note**
 
-Matrices $A$ and $B$ must be updated at each time step since they depend on the current orientation $\boldsymbol{\theta}$, through $T$ and $R$, and on $\mathbf{r}_i$ (i.e. moment arm from CoM to the $i$-th foot contact point).
+Matrices $A$ and $B$ must be updated at each time step since they depend on the current orientation $\mathbf{\theta}$, through $T$ and $R$, and on $\mathbf{r}_i$ (i.e. moment arm from CoM to the $i$-th foot contact point).
 
 ### Measurements
 
@@ -233,7 +233,7 @@ In order to use EKF, I need to rely on some measurements which will correct my u
 \mathbf{\hat{p}}_{\text{SLAM}} \\
 \mathbf{\hat{\theta}}_{\text{SLAM}} \\
 \hat{\mathbf{a}}_{\text{IMU}} \\
-\boldsymbol{\hat{\omega}}_{\text{IMU}}
+\mathbf{\hat{\omega}}_{\text{IMU}}
 \end{bmatrix}
 ```
 
@@ -244,7 +244,7 @@ So the measurement model $h(x)$ can be defined as:
 \mathbf{p}_{\text{SLAM}} \\
 \mathbf{\theta} \\
 \mathbf{R}_{\text{world}}^{\text{body}} \cdot (\mathbf{\dot{v}-g)} \\
-\boldsymbol{\omega}
+\mathbf{\omega}
 \end{bmatrix}
 ```
 
